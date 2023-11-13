@@ -1,11 +1,5 @@
-body {
-  /*padding: 10px;*/
-    margin: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-.header {
-    color: aliceblue;
-    background: #181826;
-    padding: 15px;
+.card{
+    max-height: 200px;
+    max-width: 200px;
+    overflow-y: hidden;
 }

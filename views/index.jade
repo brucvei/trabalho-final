@@ -1,6 +1,24 @@
 extends layout
 
 block content
-  div.header
-    h1= title
+  nav.navbar.bg-dark
+    div.container-fluid.px-5
+      h1.navbar-brand.text-light.mb-0.h1= title
+      p.navbar-brand.text-light Bruna Caetano
   div.container
+    div.row
+      div.col-12
+        h2.mt-5.text-body-secondary Notas fiscais
+    div.row
+      div.col-12
+        div.row.row-cols-1.row-cols-md-3.g-4
+          each nota, i in notas
+            div.card.h-25.overflow-y-auto
+              div.card-body
+                h5.card-title= nota.nfeProc.NFe.infNFe.dest.xNome
+                span.card-subtitle.mb-2.text-body-secondary.pe-3= nota.nfeProc.NFe.infNFe.ide.dEmi
+                span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
+                p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
+                a.card-link(href='http://localhost:8080/nota/'+(i+1)) Ver JSON nota
+          else
+            p Nao foi encontrada nenhuma nota
