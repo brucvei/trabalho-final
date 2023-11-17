@@ -12,13 +12,69 @@ block content
     div.row
       div.col-12
         div.row.row-cols-1.row-cols-md-3.g-4
-          each nota, i in notas
-            div.card.h-25.overflow-y-auto
-              div.card-body
-                h5.card-title= nota.nfeProc.NFe.infNFe.dest.xNome
-                span.card-subtitle.mb-2.text-body-secondary.pe-3= nota.nfeProc.NFe.infNFe.ide.dEmi
-                span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
-                p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
-                a.card-link(href='http://localhost:8080/nota/'+(i+1)) Ver JSON nota
+          if notas
+            each nota, i in notas
+              div.col-md-3
+                div.card
+                  div.card-body
+                    h5.card-title= nota.nfeProc.NFe.infNFe.dest.xNome
+                    span.card-subtitle.mb-2.text-body-secondary.pe-3= nota.nfeProc.NFe.infNFe.ide.dEmi
+                    span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
+                    p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
+                    a.card-link(href='http://localhost:8080/nota/' + (i + 1)) Ver JSON nota
           else
-            p Nao foi encontrada nenhuma nota
+            br
+            p Nao foi possivel encontrar nenhuma nota
+    div.row
+      if impostos
+        h3.mt-5.text-body-secondary Impostos
+        div.row
+          div.col
+            div.row
+              div.card
+                div.card-body
+                  div.card-title
+                    h4 ISSQN
+                  p.card-text= impostos.issqn
+            div.row
+              div.card
+                div.card-body
+                  div.card-title
+                    h4 Tributos
+                  p.card-text= impostos.tributos
+          div.col-md-6
+            div.card
+              div.card-body
+                div.card-title
+                  h4 ICMS
+                span.card-text
+                  div.row
+                    div.col-6
+                      span COFINS: #{impostos.icms.COFINS}
+                      br
+                      span BCST: #{impostos.icms.BCST}
+                      br
+                      span Prod: #{impostos.icms.Prod}
+                      br
+                      span Seg: #{impostos.icms.Seg}
+                      br
+                      span NF: #{impostos.icms.NF}
+                      br
+                      span PIS: #{impostos.icms.PIS}
+                      br
+                      span BC: #{impostos.icms.BC}
+                    div.col-6
+                      span ST: #{impostos.icms.ST}
+                      br
+                      span ICMS: #{impostos.icms.ICMS}
+                      br
+                      span II: #{impostos.icms.II}
+                      br
+                      span Desc: #{impostos.icms.Desc}
+                      br
+                      span Outro: #{impostos.icms.Outro}
+                      br
+                      span IPI: #{impostos.icms.IPI}
+                      br
+                      span Frete: #{impostos.icms.Frete}
+

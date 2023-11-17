@@ -1,5 +1,9 @@
-.card{
-    max-height: 200px;
-    max-width: 200px;
-    overflow-y: hidden;
+/*.card{*/
+/*    max-height: 200px;*/
+/*    max-width: 200px;*/
+/*    overflow-y: hidden;*/
+/*}*/
+
+.grid-cards {
+    display: flex;
 }
