@@ -7,8 +7,12 @@ block content
       p.navbar-brand.text-light Bruna Caetano
   div.container
     div.row
-      div.col-12
+      div.col-6
         h2.mt-5.text-body-secondary Notas fiscais
+      div.col-6
+        if qntdNotas
+          h5.mt-5.text-body-secondary.text-end Encontradas: #{qntdNotas}
+    br
     div.row
       div.col-12
         div.row.row-cols-1.row-cols-md-3.g-4
@@ -30,18 +34,31 @@ block content
         h3.mt-5.text-body-secondary Impostos
         div.row
           div.col
-            div.row
-              div.card
-                div.card-body
-                  div.card-title
-                    h4 ISSQN
-                  p.card-text= impostos.issqn
-            div.row
-              div.card
-                div.card-body
-                  div.card-title
-                    h4 Tributos
-                  p.card-text= impostos.tributos
+            div.row.row-cols-1.row-cols-md-2.g-4
+              div.col-md-6
+                div.card
+                  div.card-body
+                    div.card-title
+                      h4 ISSQN
+                    p.card-text= impostos.issqn
+              div.col-md-6
+                div.card
+                  div.card-body
+                    div.card-title
+                      h4 Tributos
+                    p.card-text= impostos.tributos
+              div.col-md-6
+                div.card
+                  div.card-body
+                    div.card-title
+                      h4 Produtos
+                    p.card-text= valorProdutos
+              div.col-md-6
+                div.card
+                  div.card-body
+                    div.card-title
+                      h4 Frete
+                    p.card-text= valorFrete
           div.col-md-6
             div.card
               div.card-body
@@ -78,3 +95,27 @@ block content
                       br
                       span Frete: #{impostos.icms.Frete}
 
+    div.row
+      div.col-6
+        h2.mt-5.text-body-secondary Produtos
+      div.col-6
+        if qntdNotas
+          h5.mt-5.text-body-secondary.text-end Encontrados: #{qntdProdutos}
+    div.row
+        h4.mt-5.text-body-secondary Por notas fiscal
+        div.row
+          div.col-12
+            div.row.row-cols-1.row-cols-md-1.g-2
+              if produtos
+                each produto in produtos
+                  div.col-md-6
+                    div.card
+                      div.card-body
+                        h5.card-title= produto.xProd
+                        span.card-subtitle.mb-2.text-body-secondary.pe-3= produto.nNf
+                        //span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
+                        //p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
+                        //a.card-link(href='http://localhost:8080/nota/' + (i + 1)) Ver JSON nota
+              else
+                br
+                p Nao foi possivel encontrar nenhum produto
