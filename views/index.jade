@@ -25,10 +25,20 @@ block content
                     span.card-subtitle.mb-2.text-body-secondary.pe-3= nota.nfeProc.NFe.infNFe.ide.dEmi
                     span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
                     p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
+                    if nota.nfeProc.NFe.infNFe.det.length > 1
+                      p.card-text Quantidades de produtos: #{nota.nfeProc.NFe.infNFe.det.length}
+                    else
+                      p.card-text Quantidade de produto: 1
                     a.card-link(href='http://localhost:8080/nota/' + (i + 1)) Ver JSON nota
           else
             br
             p Nao foi possivel encontrar nenhuma nota
+          if maior
+            div.col-md-3
+              div.card
+                div.card-body
+                  h5.card-title Nota de maior valor
+                    span.badge.bg-primary.m-3 #{maior}
     div.row
       if impostos
         h3.mt-5.text-body-secondary Impostos
@@ -102,20 +112,44 @@ block content
         if qntdNotas
           h5.mt-5.text-body-secondary.text-end Encontrados: #{qntdProdutos}
     div.row
-        h4.mt-5.text-body-secondary Por notas fiscal
-        div.row
-          div.col-12
-            div.row.row-cols-1.row-cols-md-1.g-2
-              if produtos
-                each produto in produtos
-                  div.col-md-6
-                    div.card
-                      div.card-body
-                        h5.card-title= produto.xProd
-                        span.card-subtitle.mb-2.text-body-secondary.pe-3= produto.nNf
-                        //span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
-                        //p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
-                        //a.card-link(href='http://localhost:8080/nota/' + (i + 1)) Ver JSON nota
-              else
-                br
-                p Nao foi possivel encontrar nenhum produto
+      h4.mt-5.text-body-secondary Por notas fiscal
+      div.row
+        div.col-12
+          div.row.row-cols-1.row-cols-md-1.g-2
+            if produtos
+              each produto in produtos
+                div.col-md-6
+                  div.card
+                    div.card-body
+                      h5.card-title= produto.xProd
+                      p.card-subtitle Nota fiscal
+                        span.badge.bg-primary.m-3 #{produto.nNF}
+                      div.row
+                        div.col-6
+                          p.card-text Quantidade: #{produto.indTot}
+                          p.card-text Valor unitario: #{produto.vUnTrib}
+                          p.card-text Valor total: #{produto.vProd}
+                        div.col-6
+                          - var imposto = produto.impostos[0]
+                          if imposto.ICMS.ICMS60 !== undefined
+                            p.card-text ICMS: #{imposto.ICMS.ICMS60.vICMSSTRet}
+                          else if imposto.ICMS.ICMS00 !== undefined
+                            p.card-text ICMS: #{imposto.ICMS.ICMS00.pICMS}
+                          if imposto.PIS.PISAliq !== undefined
+                            p.card-text ISSQN: #{imposto.PIS.PISAliq.vPIS}
+                          else if imposto.PIS.PISNT !== undefined
+                            p.card-text ISSQN: #{imposto.PIS.PISNT.CST}
+
+                          //p.card-text ISSQN: #{imposto.IPI }
+                      //span.badge.bg-primary= nota.nfeProc.NFe.infNFe.ide.nNF
+                      //p.card-text= nota.nfeProc.NFe.infNFe.emit.xNome
+                      //a.card-link(href='http://localhost:8080/nota/' + (i + 1)) Ver JSON nota
+            else
+              br
+              p Nao foi possivel encontrar nenhum produto
+            if maior
+              div.col-md-6
+                div.card
+                  div.card-body
+                    h5.card-title Produto mais barato
+                    p.card-subtitle.text-secondary= barato

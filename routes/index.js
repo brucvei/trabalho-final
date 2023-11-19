@@ -46,6 +46,8 @@ const options = {
     vUnTrib: null,
     indTot: null
   }],
+  barato: null,
+  maior: null,
 };
 
 /* GET home page. */
@@ -56,22 +58,28 @@ router.get('/', function (req, res, next) {
       options.qntdNotas = notas.data;
       axios.get(url + "/nota/all").then(notas => {
         options.notas = notas.data;
-        axios.get(url + "/issqn").then(issqn => {
-          options.impostos.issqn = issqn.data;
-          axios.get(url + "/icms").then(icms => {
-            options.impostos.icms = icms.data;
-            axios.get(url + "/tributos").then(tributos => {
-              options.impostos.tributos = tributos.data;
-              axios.get(url + "/produtos/valor-total").then(valorProdutos => {
-                options.valorProdutos = valorProdutos.data;
-                axios.get(url + "/frete").then(valorFrete => {
-                  options.valorFrete = valorFrete.data;
-                  axios.get(url + "/produtos/quantidade").then(qntdProdutos => {
-                    options.qntdProdutos = qntdProdutos.data;
-                    axios.get(url + "/produtos").then(produtos => {
-                      options.produtos = produtos.data;
-                      console.log(options.produtos)
-                      res.render('index', options);
+        axios.get(url + "/nota/maior").then(maior => {
+          options.maior = maior.data;
+          axios.get(url + "/issqn").then(issqn => {
+            options.impostos.issqn = issqn.data;
+            axios.get(url + "/icms").then(icms => {
+              options.impostos.icms = icms.data;
+              axios.get(url + "/tributos").then(tributos => {
+                options.impostos.tributos = tributos.data;
+                axios.get(url + "/produtos/valor-total").then(valorProdutos => {
+                  options.valorProdutos = valorProdutos.data;
+                  axios.get(url + "/frete").then(valorFrete => {
+                    options.valorFrete = valorFrete.data;
+                    axios.get(url + "/produtos/quantidade").then(qntdProdutos => {
+                      options.qntdProdutos = qntdProdutos.data;
+                      axios.get(url + "/produtos").then(produtos => {
+                        options.produtos = produtos.data;
+                        axios.get(url + "/produtos/barato").then(barato => {
+                          options.barato = barato.data;
+                          console.log(options)
+                          res.render('index', options);
+                        });
+                      });
                     });
                   });
                 });
